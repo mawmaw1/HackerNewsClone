@@ -1,11 +1,11 @@
 # Hacker News
 ## Introduction
-#### &nbsp;&nbsp;1. Purpose of the system
-#### &nbsp;&nbsp;2. Scope of the system
-#### &nbsp;&nbsp;3. Objectives and success criteria of the project
-#### &nbsp;&nbsp;4. Definitions, acronyms and abbreviations
-#### &nbsp;&nbsp;5. References
-#### &nbsp;&nbsp;6. Overview
+#### 1. Purpose of the system
+#### 2. Scope of the system
+#### 3. Objectives and success criteria of the project
+#### 4. Definitions, acronyms and abbreviations
+#### 5. References
+#### 6. Overview
 ## Current system
 ## Proposed system
 #### 1. Overview
