@@ -28,6 +28,10 @@ to the public, with more than 95% uptime.
 ## Current system
 ## Proposed system
 #### 1. Overview
+
+The backend of the application will be on Node. On the frontend we will utilize
+SASS for styling and Vue.js as our framework.
+
 #### 2. Functional Requirements
 
 - To access all functionality on the application, users can create an account.
