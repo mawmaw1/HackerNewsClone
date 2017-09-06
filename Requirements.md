@@ -76,7 +76,8 @@ write here)
 ###### a. Scenarios
 ###### b. Use case model
 
-https://i.imgur.com/zRPxHKR.jpg
+![alt use-case-model](https://i.imgur.com/zRPxHKR.jpg)
+
 
 ## Glossary
 
