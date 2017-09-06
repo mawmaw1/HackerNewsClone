@@ -75,6 +75,9 @@ write here)
 #### 4. System Models
 ###### a. Scenarios
 ###### b. Use case model
+
+https://i.imgur.com/zRPxHKR.jpg
+
 ## Glossary
 
 - **Post**: A textual introduction to a debate, link or picture.
