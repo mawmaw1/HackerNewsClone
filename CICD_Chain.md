@@ -1,6 +1,6 @@
 1: 
 
-http://krissenogteambonererfedeboegs.magnuslarsen.dk
+139.59.211.36:8083
 
 2: 
 
