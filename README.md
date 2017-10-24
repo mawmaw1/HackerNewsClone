@@ -1,5 +1,11 @@
 # Hacker News
 
+## Participation percentage
+- Magnus 33%
+- Kristian 33%
+- Kristoffer N 33%
+- Christopher B 0% (was sleeping the entire time)
+
 ## 2 - Logical Data Model
 
 ![alt text](https://github.com/mawmaw1/HackerNewsClone/blob/master/doc/img/Logical%20Data%20Model.png)
