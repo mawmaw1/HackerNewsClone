@@ -1,10 +1,11 @@
 # Hacker News
 
 ## Participation percentage
-- Magnus 33%
-- Kristian 33%
-- Kristoffer N 33%
-- Christopher B 0% (was sleeping the entire time)
+- Magnus 25%
+- Kristian 25%
+- Kristoffer N 25%
+- Christopher B 25% 
+The hand in was completed with everyone participating, and everyone was present during the assignment.
 
 ## 2 - Logical Data Model
 
