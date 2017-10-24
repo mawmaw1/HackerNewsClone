@@ -5,6 +5,7 @@
 - Kristian 25%
 - Kristoffer N 25%
 - Christopher B 25% 
+
 The hand in was completed with everyone participating, and everyone was present during the assignment.
 
 ## 2 - Logical Data Model
