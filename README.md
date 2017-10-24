@@ -134,3 +134,4 @@
  
  ![alt text](https://github.com/mawmaw1/HackerNewsClone/blob/master/doc/img/Sekvens%20Diagram.png)
  
+Illustrates the flow of viewing posts: The user retrieves the list of new posts, selects one, and views the specific post and its comments.
