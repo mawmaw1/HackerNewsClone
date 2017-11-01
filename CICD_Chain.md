@@ -1,6 +1,14 @@
-1: 
+# Hacker News
+## 
+#### 1.
 
+Link to our backend:
+http://139.59.211.36:8081
+
+Link to our frontend:
 http://139.59.211.36:8083
+
+
 
 2: 
 
