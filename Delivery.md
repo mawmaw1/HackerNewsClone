@@ -80,3 +80,20 @@ You will get the following response. This route will also get all comments for a
   ]
 }
 ```
+### Posting post to db
+#### '/post'
+- METHOD: POST
+- Body of the request MUST have det following format:
+
+```js
+post = {
+    username: String,
+    post_type: String,
+    pwd_hash: String, 
+    post_title: String,
+    post_url: String,
+    post_parent: Number,
+    hanesst_id: {type: Number, unique: true},
+    post_text: String,
+}
+```
