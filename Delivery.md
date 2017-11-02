@@ -5,7 +5,7 @@
 Link to our backend (REST API):
 http://139.59.211.36:8081
 
-*This the server you must use to post posts/comments and get the latest hanesst_id*
+*This the server you must use to post posts/comments and get the latest hanesst_id*.
 
 Link to our frontend:
 http://139.59.211.36:8083
@@ -23,7 +23,7 @@ Currently, all of our subsystems are running on the same DigitalOcean droplet.
 - Skip is an integer that decides how many documents you want to skip before getting x amount of posts
 - Limit is an integer that decides how many documents you want from the backend
 ##### Example
-'/posts/25/25' will give you the documents 25-50. We skipped the first 25 documents and wanted to get 25 documents
+'/posts/25/25' will give you the documents 25-50. We skipped the first 25 documents and wanted to get 25 documents.
 
 ### Getting post
 #### '/post/:id'
@@ -107,7 +107,7 @@ post = {
 - Id is the **hanesst_id** of the post/comment you want to get comments for.
 
 ##### Example
-In this example we wanted all comments for the post with **hanesst_id = 1**. We got a docuemnt with single comment. The comment also has a comment itself
+In this example we wanted all comments for the post with **hanesst_id = 1**. We got a docuemnt with single comment. The comment also has a comment itself.
 
 ```json
 [
