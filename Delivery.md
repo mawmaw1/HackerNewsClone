@@ -100,7 +100,7 @@ post = {
 }
 ```
 ### Getting comments for post or comment
-#### '/comments/:id*'
+#### '/comments/:id'
 - METHOD: GET
 - Id is the **hanesst_id** of the post/comment you want to get comments for.
 
