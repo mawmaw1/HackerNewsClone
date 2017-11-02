@@ -17,6 +17,25 @@ Currently, all of our subsystems are running on the same DigitalOcean droplet.
 
 ## Routes in our REST-API
 
+### Posting post to db
+#### '/post'
+- METHOD: POST
+- Body of the request MUST have det following format:
+
+##### Example
+```js
+post = {
+    username: String,
+    post_type: String,
+    pwd_hash: String, 
+    post_title: String,
+    post_url: String,
+    post_parent: Number,
+    hanesst_id: {type: Number, unique: true},
+    post_text: String,
+}
+```
+
 ### Getting posts
 #### '/posts/:skip/:limit'
 - METHOD: GET
@@ -83,24 +102,7 @@ You will get the following response. This route will also get all comments for a
   ]
 }
 ```
-### Posting post to db
-#### '/post'
-- METHOD: POST
-- Body of the request MUST have det following format:
 
-##### Example
-```js
-post = {
-    username: String,
-    post_type: String,
-    pwd_hash: String, 
-    post_title: String,
-    post_url: String,
-    post_parent: Number,
-    hanesst_id: {type: Number, unique: true},
-    post_text: String,
-}
-```
 ### Getting comments for post or comment
 #### '/comments/:id'
 - METHOD: GET
