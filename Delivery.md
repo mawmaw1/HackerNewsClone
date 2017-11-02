@@ -27,6 +27,8 @@ Currently, all of our subsystems are running on the same DigitalOcean droplet.
 #### '/post/:id'
 - METHOD: GET
 - Id is the ID of the document you want to get
+
+You will get the following response. This route will also get all comments for at post. The comments will also have an array of comments, if the comments have comments themselves. 
 ```json
 {
   "post": {
