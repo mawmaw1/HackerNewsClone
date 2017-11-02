@@ -29,6 +29,7 @@ Currently, all of our subsystems are running on the same DigitalOcean droplet.
 - Id is the ID of the document you want to get
 
 You will get the following response. This route will also get all comments for at post. The comments will also have an array of comments, if the comments have comments themselves. 
+##### Example
 ```json
 {
   "post": {
@@ -85,6 +86,7 @@ You will get the following response. This route will also get all comments for a
 - METHOD: POST
 - Body of the request MUST have det following format:
 
+##### Example
 ```js
 post = {
     username: String,
@@ -96,4 +98,47 @@ post = {
     hanesst_id: {type: Number, unique: true},
     post_text: String,
 }
+```
+### Getting comments for post or comment
+#### '/comments/:id*'
+- METHOD: GET
+- Id is the **hanesst_id** of the post/comment you want to get comments for.
+
+##### Example
+In this example we wanted all comments for the post with **hanesst_id = 1**. We got a docuemnt with single comment. The comment also has a comment itself
+
+```json
+[
+  {
+    "_id": "59f9fa0e36ec3746596fec73",
+    "username": "sama",
+    "post_type": "comment",
+    "pwd_hash": "UJHEFZtpzO",
+    "post_title": "",
+    "post_url": "",
+    "post_parent": 1,
+    "hanesst_id": 15,
+    "post_text": "&#34;the rising star of venture capital&#34; -unknown VC eating lunch on SHR",
+    "created_at": "2017-11-01T16:45:02.955Z",
+    "points": 1,
+    "__v": 0,
+    "comments": [
+      {
+        "_id": "59f9fa0f36ec3746596fec75",
+        "username": "pg",
+        "post_type": "comment",
+        "pwd_hash": "Y89KIJ3frM",
+        "post_title": "",
+        "post_url": "",
+        "post_parent": 15,
+        "hanesst_id": 17,
+        "post_text": "Is there anywhere to eat on Sandhill Road?",
+        "created_at": "2017-11-01T16:45:03.037Z",
+        "points": 1,
+        "__v": 0,
+        "comments": 0
+      }
+    ]
+  }
+]
 ```
