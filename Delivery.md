@@ -2,7 +2,7 @@
 ## Delivery
 ### 1.
 
-Link to our backend:
+Link to our backend (REST API):
 http://139.59.211.36:8081
 
 Link to our frontend:
