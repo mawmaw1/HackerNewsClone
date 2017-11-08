@@ -11,7 +11,7 @@
   Must not be above 4 hours
   
 - #### Errors/Time
-  Must not be above 10 per hour
+  Must not be above 10 errors per hour
 
 ## Submitting issues
 
