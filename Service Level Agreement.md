@@ -2,7 +2,7 @@
 ## Hacker News Clone
 
 - #### Uptime
-  The uptime of the running application must not go below 95 %
+  The uptime of the running application must not go below 98.3 %
   
 - #### Mean Response Time
   The mean resonse time for all http requests must not be above 500 ms
