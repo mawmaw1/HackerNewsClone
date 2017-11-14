@@ -5,7 +5,7 @@
 Link to our backend (REST API):
 http://139.59.211.36:8081
 
-*This the server you must use to post posts/comments and get the latest hanesst_id*.
+*This is the server you must use to post posts/comments and get the latest hanesst_id*.
 
 Link to our frontend:
 http://139.59.211.36:8083
