@@ -10,6 +10,7 @@ En ændring af serverens port i filen server.js resulterede i et crash på serve
 Systemet var sat til at lytte på port 8083, men docker-deploy scriptet var sat til at mappe port 8083 til 8080 inde i containeren. 
 
 ## The fix
+Vi blev kontaktet af operation-gruppen, som gjorde os opmærksomme på problemet.
 Vi besluttede i første omgang at reverte applikationen tilbage til en tidligere version, som tidligere havde virket. Derefter kunne vi identificere og rette fejlen, uden at miste mere dyrebar uptime.
 
 ## Lessons learned
