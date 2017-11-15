@@ -1,7 +1,7 @@
 # Post Mortem Analyse 
 
 ## Summary
-Tirsdag d. 14/11-2017 kl 19:37 blev der bygget en ny version af backenden i Jenkins, der resulterede i et crash af serveren.
+Tirsdag d. 14/11-2017 kl 19:37 blev der bygget en ny version af backenden i Jenkins, da ny kode var blevet pushed til Git. Det resulterede i et crash af serveren.
 
 ## Detailed description
 En ændring af serverens port i filen server.js resulterede i et crash på serveren, da den specificerede port ikke længere stemte overens med den port, som var angivet i systemets docker-deploy script. 
