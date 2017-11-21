@@ -19,3 +19,4 @@ the system that are taxed and need additional computing power.
 
 ## Running Docker Swarm
 
+![alt text](https://github.com/mawmaw1/HackerNewsClone/blob/master/doc/img/Screen%20Shot%202017-11-21%20at%2012.11.59.png)
