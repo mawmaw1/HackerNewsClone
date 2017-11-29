@@ -33,9 +33,9 @@ Among other threats are:
 | | Negligible | Marginal | Critical | Catastrophic |
 --- | --- | --- | --- | --- |
 Certain | Port scraping | 
-Likely | | | | |
-Possible |  | 
-Unlikely |  | 
-Rare |  | 
+Likely | | | Bots gaining access to database | |
+Possible | | DDos attack | Developer creating vulnerability in system | 
+Unlikely | | | Hackers gaining access to source-code via Git-repositories | Hacker gaining root access |
+Rare | | | | DigitalOcean server downtime 
 
 
