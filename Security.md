@@ -38,4 +38,5 @@ Possible | | DDos attack | Developer creating vulnerability in system |
 Unlikely | | | Hackers gaining access to source-code via Git-repositories | Hacker gaining root access |
 Rare | | | | DigitalOcean server downtime 
 
+## Vulnerabilities found at group A
 
