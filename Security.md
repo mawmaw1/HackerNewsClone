@@ -30,4 +30,12 @@ Among other threats are:
 
 ## Risk Matrix
 
+| | Negligible | Marginal | Critical | Catastrophic |
+--- | --- | --- | --- | --- |
+Certain | Port scraping | 
+Likely | | | | |
+Possible |  | 
+Unlikely |  | 
+Rare |  | 
+
 
