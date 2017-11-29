@@ -45,3 +45,7 @@ We found a minor vulnerability earlier, but it didn't give us much access to the
 Group A had given us the link to their Grafana-page. Before we were given a login we just tried with admin-admin and we immediately got in their system. From here we could not do much as Grafana is mostly for viewing graphs and stats, but in theory we might be able to extract some information about their servers that they did not want us to know.
 
 Furthermore we were told by group A that a hacker got access to their database and demanded a large sum in order to get their data back. Luckely the group only had unimportant test data but it still says something about their vulnerabilities. The group has since then fixed the exploit and didn't really lose anything from the attack. 
+
+## OWTF
+
+With OWTF we have the ability of penetration-testing an application. Unfortunately we did not succeed in running OWTF on neither Docker nor the regular installation on Linux. Several issues occured running OWTF, including several missing dependencies (msfconsole and many others). We understand the concept of penetration-testing through the use of such systems as OWTF, but the complications of this system made it impossible for use currently.
