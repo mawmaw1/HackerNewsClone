@@ -188,8 +188,10 @@ På frontenden havde de valgte teknologier overordnet set en positiv effekt på 
 
 ### 2.1. Hand-over
 Vores gruppe modtog et 14 sider langt hand-over dokument, som i detaljeret grad beskrev deres system. Dokumentet var både en beskrivelse af systemet som en helhed, men også i mere detaljeret grad en forklaring af de enkelte dele. I dokumentet var der henvisninger til Git-repositories, IP-adresser til del-komponenterne i deres system, samt information om deres Jenkins Build & Deploy opsætning.
+
 Gruppen havde lavet et beskrivende diagram, som flot viste hvorledes hele deres ’Continuous Integration & Continuous Delivery’-opsætning fungerede, for både deres backend og frontend. Det gjorde det nemt at danne sig et overblik over, hvad der kom til at ske, når et nyt bygge-job blev eksekveret.
 Da gruppen havde valgt, at vi skulle have adgang til deres Jenkins-server, havde de fint beskrevet deres forskellige bygge-job. Gruppens udviklere benyttede sig af webhooks til at starte nye byg, og derfor ville de gerne have at vi som operatører skulle holde øje med om byg fejlede, og i så fald melde tilbage. Derfor var det godt, at de havde dokumentation omkring deres forskellige byg med i deres hand-over.
+
 Det var i dokumentet beskrevet, hvad vi som operatører havde adgang til, og hvad det var meningen vi skulle monitorere. Det var muligt at få et overblik over deres forskellige komponenters logs, via et bygge-job. Det kunne måske have været gjort nemmere, ved at have et dedikeret komponent til at vise logs i virkelig tid, fremfor at skulle starte et nyt job for at kunne se logs. Udover dette, var der i deres hand-over en masse viden omkring hvordan deres komponenter internt kommunikerede, hvilket også var med til at øge forståeligheden af deres komplette system.
 Sammenlagt var det et hand-over i høj kvalitet, og de havde tydeligt klargjort hvad formålet for os som operatører var, og vi havde derfor nemt ved at sætte os ind i rollerne som operatører.
 
