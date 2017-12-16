@@ -103,7 +103,7 @@ Her ses et sekvensdiagram for en af de mange use cases. I det her tilfælde er d
 
 Sekvensdiagrammet illustrerer det givne flow i applikationen når en bruger vælger at se en post. Det kan med andre ord ses, hvordan systemet går fra frontenden til backenden.
 
-### Development Proces
+### 1.2 Development Proces
 
 Under udviklingen af systemet har vi gjort brug af flere Scrum-processer blandet med en smule XP-praktikker.
 Scrum er noget vi efterhånden har en del erfaring med, og det er specielt brugbart i udviklingen af systemer, hvor man er en del af et mindre team, og hvor krav og ændringer opstår ofte under processen. Da netop dette var de forhold vi befandt os under, var det oplagt at bruge Scrum.
