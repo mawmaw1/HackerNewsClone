@@ -119,6 +119,59 @@ XP-praktikkerne er også nogle vi har brugt mange gange efterhånden, så de sid
 Et alternativ til den agile arbejdsproces og Scrum kunne være UP. I UP arbejder man med den iterative and incremental arbejdsproces. UP er i modsætningen til Scrum en arbejdsproces, hvor man ikke i lige så høj grad kan være agil og lave ændringer undervejs. UP kan ses som mellemledet mellem den agile arbejdsproces og vandfaldsmodellen. UP gør brug af fire faser kaldet inception, elaboration, construction og transition. Det betyder også, at man inden for hver af de fire faser arbejder iterativt, og dermed inden for hver fase kan nå at lave ændringer og træffe beslutninger. Typisk vil man dog have svært ved at ændre på de faser som er færdige og som allerede har været gennem iterationer.
 Da UP oftes bruges til mellemstore eller store systemer gav det ikke mening at benytte denne arbejdsproces.
 
+### 1.5. Software implementation
+Vores produkt blev implementeret i forskellige iterationer, og vi gik efter det vigtigste hvilket var at have vores backend klar til at modtage posts, der kunne blive indsat i databasen. Allerede der løb vi ind i et problem der gik på at, de POST kald vi fik ikke havde en header der beskrev at data typen var JSON. Vi fik løst dette problem ved at lave et middleware i Express det skulle parse alt det data i HTTP requests, som JSON.
+
+Efter en uges tid hvor vi har taget imod posts, opdagede vi at vores query til at hente de seneste posts var blevet markant langsommere, og kun blev mere langsom i takt med hvor mange posts vi havde. Efter noget troubleshooting fandt vi frem til at databasen nok skulle løbe igennem alle posts for at finde frem til et “parent” post der matchede, hvilket er et stort performance issue når der er flere end 1.000.000 posts. Vi fik løst dette problem ved at indeksere `post_parent` igennem mongoose, ved at sætte et index parameter.
+```javascript
+post_parent: { type: Number, index: true }
+```
+Det andet felt `hanesst_id` var allerede indexeret indekseret igennem mongoose, idet vi havde specificeret at dette felt skulle være unikt i denne kollektion.
+
+
+På frontenden havde de valgte teknologier overordnet set en positiv effekt på udviklingen. Opsætning af Webpack var i første omgang lidt omstændig, men da vi fik styr på konfigureringen kørte det ret glat. Det var nemt at sætte en build process op i Jenkins, der transpilede og bundlede vores kildekode til produktions-klar filer. Derudover havde frontenden en overskuelig struktur og blev ikke for kompleks eller rodet. 
+
+## 2. Maintenance and SLA status
+
+### 2.1. Hand-over
+Vores gruppe modtog et 14 sider langt hand-over dokument, som i detaljeret grad beskrev deres system. Dokumentet var både en beskrivelse af systemet som en helhed, men også i mere detaljeret grad en forklaring af de enkelte dele. I dokumentet var der henvisninger til Git-repositories, IP-adresser til del-komponenterne i deres system, samt information om deres Jenkins Build & Deploy opsætning.
+Gruppen havde lavet et beskrivende diagram, som flot viste hvorledes hele deres ’Continuous Integration & Continuous Delivery’-opsætning fungerede, for både deres backend og frontend. Det gjorde det nemt at danne sig et overblik over, hvad der kom til at ske, når et nyt bygge-job blev eksekveret.
+Da gruppen havde valgt, at vi skulle have adgang til deres Jenkins-server, havde de fint beskrevet deres forskellige bygge-job. Gruppens udviklere benyttede sig af webhooks til at starte nye byg, og derfor ville de gerne have at vi som operatører skulle holde øje med om byg fejlede, og i så fald melde tilbage. Derfor var det godt, at de havde dokumentation omkring deres forskellige byg med i deres hand-over.
+Det var i dokumentet beskrevet, hvad vi som operatører havde adgang til, og hvad det var meningen vi skulle monitorere. Det var muligt at få et overblik over deres forskellige komponenters logs, via et bygge-job. Det kunne måske have været gjort nemmere, ved at have et dedikeret komponent til at vise logs i virkelig tid, fremfor at skulle starte et nyt job for at kunne se logs. Udover dette, var der i deres hand-over en masse viden omkring hvordan deres komponenter internt kommunikerede, hvilket også var med til at øge forståeligheden af deres komplette system.
+Sammenlagt var det et hand-over i høj kvalitet, og de havde tydeligt klargjort hvad formålet for os som operatører var, og vi havde derfor nemt ved at sætte os ind i rollerne som operatører.
+
+#### 2.2. Service-level agreement
+I samarbejde med den gruppe vi skulle være operatører for, blev der udarbejdet en SLA som begge grupper var enige om.
+I denne SLA var begge gruppers ansvar beskrevet, for både udviklerne og operatørerne. Den metric som var vigtigst for gruppe A som vi monitorerede, var at deres systems oppetid blev holdt over 95%. Såfremt denne metric ikke blev overholdt, skulle vi som operatører melde det til udviklerne, som efterfølgende ville sørge for at udbedre dette. Til at starte med havde vi talt med gruppen om at denne metric skulle holdes over 99%, da vi mente at nedetid burde holdes på et absolut minimum. Vi blev dog efterfølgende enige med gruppen om, at dette var for ambitiøst.
+Dokumentet indeholdt herudover en oversigt over gruppens forskellige del-komponenter i deres system, samt de dertilhørende IP-adresser.
+Her følger SLA mellem gruppe A og B:
+
+![alt text](https://github.com/mawmaw1/HackerNewsClone/blob/master/doc/img/Screen%20Shot%202017-12-16%20at%2015.57.11.png)
+
+### 2.3. Maintenance and reliability
+Efter at have indgået en SLA med den gruppe vi skulle monitorere, sørgede vi for mindst en gang dagligt at kontrollere gruppens delkomponenter, for dermed at sikre at der ikke var opstået problemer. Vi kontrollerede deres visuelle monitoreringssystem Grafana for at sikre at oppetiden var over 95%, undersøgte om vi fik et svar på deres /alive backend REST-api sti, samt besøgte deres frontend for at finde ud af hvorvidt der skulle være problemer der.
+Helt generelt har deres system kørt mere eller mindre problemfrit, og der har derfor ikke været meget at rapportere til gruppen.
+Vi oplevede dog en dag at deres system kørte helt ekstremt langsomt, og det tog op til 20-25 sekunder at indlæse posts på deres frontend. Da problemet blev opdaget til en undervisningstime, gjorde vi gruppen opmærksomme på problemet med det samme. I den forbindelse oprettede vi ikke et GitHub issue, men i tilfælde af at vi havde opdaget det på et andet tidspunkt, ville vi have oprettet et GitHub issue tilsvarende nedenstående billede, som blot er et eksempel på hvordan det kunne have foregået.
+
+![alt text](https://github.com/mawmaw1/HackerNewsClone/blob/master/doc/img/Screen%20Shot%202017-12-16%20at%2015.58.20.png)
+
+I den forbindelse oplevede vi at udviklerne tog problemet seriøst, for da gruppen var blevet gjort opmærksomme på problemet, sørgede de for at løse det indenfor den tidsfrist på 24 timer, som var angivet i deres SLA. Da vi ikke oplevede at det aftalte metric blev overskredet, og da deres system udover det angivne problem har været helt pålideligt, har det været en fornøjelse at monitorere deres system.
+ 
+ 
+## 3. Discussion
+### 3.1. Technical discussion
+Med henblik på teknisk design, valgte vi en kombination af bekendte og nye teknologier. Teknologier som Node og MongoDB, som vi på forhånd har erfaring med, var relativt nemme for os at sætte op, og skabte et udviklingsmiljø som vi kunne trives i. Teknologier som Jenkins og Webpack krævede lidt mere opsætning, men de gjorde også en mærkbar forskel med hensyn til hvor nemt det blev at deploye ny kode. Express og Vue (frameworks) hjalp med at sætte nogle faste rammer op omkring kode-strukturen, og abstraherede samtidig nogle af de mest gængse problemer væk, så vi kunne fokusere på det større billede. Docker strømlinede deployment, og gjorde at vi undgik en del problemer omkring opsætning af serveren. Overordnet set var vi meget tilfredse med den tekniske del, og har fået kendskab til en masse redskaber der hjælper med at løse mange af de problemstillinger man står overfor, når man har med et større system at gøre.
+I teorien var det en god idé at monitorere hinanden, grupperne imellem, men rent praktisk faldt det en smule til jorden, da systemerne som sådan bare kørte uden større problemer. Derfor var der ikke så meget for os at lave som operatører, og i virkeligheden havde vi nok en større interesse i at monitorere og forbedre vores eget system, fremfor at monitorere andres systemer.
+
+
+### 3.2. Group work reflection & Lessons learned
+Inden vi gik i gang med projektet havde vi styr på udviklingen af systemer, da vi har prøvet det mange gange før. Vi manglede dog viden omkring, hvordan man håndterer store systemer, skalerer, monitorerer og generelt holder et stort system live størstedelen af tiden. Gennem projektet og de mange delafleveringer sidder vi tilbage med følelsen af at vi nu er klædt godt på til at udvikle og vedligeholde store systemer. Yderligere har det givet os et nyt perspektiv på softwareudvikling, da det viser sig, at man ikke bare kan kode et system og så aflevere det. Der findes en mindst lige så lang periode efter systemet er færdigt, hvor det skal vedligeholdes og monitoreres, og dette har sine helt egne problemstillinger og udfordringer som vi ikke før har mødt. Vi har nu erfaring med ting som Prometheus, og Grafana som vi tror på har en kæmpe værdi for os som udviklere, og erfaring med Kibana så vi langt nemmere og effektivt kan finde eventuelle fejl i en kæmpe mængde af log-entries. 
+
+Yderligere har vi været ekstremt tilfredse med Jenkins og generelt CI/CD, da vi tidligere manuelt har deployet. En af fordelene ved at kunne deploye så nemt, er at man kan deploye oftere, og på den måde undgår massive deploys, der laver dramatiske ændringer i applikationen. Små releases er lettere at håndtere, og resulterer i at der er færre bugs der finder vej til produktion. 
+De forskellige roller (project manager, architect, devops etc.), har vi ikke gjort brug af, da vi ikke følte det gjorde så meget for vores gruppe, idet vi har gennemgået de fleste ting som gruppe og ikke ladt den individuelle person stå for en kæmpe del af projektet.
+
+## Konklusion:
+Vi føler at projektet, og udviklingsprocessen i sin helhed, har udvidet vores horisont omkring store systemer. Vi har fået en masse viden omkring redskaber og deres anvendelse, samt designvalg, hvilket har gjort os bedre rustet til at udvikle og vedligeholde et system der vokser eksponentielt. Ligesom min penis.
 
 
 
