@@ -119,6 +119,59 @@ XP-praktikkerne er også nogle vi har brugt mange gange efterhånden, så de sid
 Et alternativ til den agile arbejdsproces og Scrum kunne være UP. I UP arbejder man med den iterative and incremental arbejdsproces. UP er i modsætningen til Scrum en arbejdsproces, hvor man ikke i lige så høj grad kan være agil og lave ændringer undervejs. UP kan ses som mellemledet mellem den agile arbejdsproces og vandfaldsmodellen. UP gør brug af fire faser kaldet inception, elaboration, construction og transition. Det betyder også, at man inden for hver af de fire faser arbejder iterativt, og dermed inden for hver fase kan nå at lave ændringer og træffe beslutninger. Typisk vil man dog have svært ved at ændre på de faser som er færdige og som allerede har været gennem iterationer.
 Da UP oftes bruges til mellemstore eller store systemer gav det ikke mening at benytte denne arbejdsproces.
 
+### 1.3. Software architecture
+
+![alt text](https://github.com/mawmaw1/HackerNewsClone/blob/master/doc/img/architecture.png)
+
+Vores applikations arkitektur er bygget op omkring en MongoDB database. Hertil har vi en Node.js backend med Express frameworket, som vores REST API er designet med. Som visuelt lag har vi en Vue.js frontend, der henter data via HTTP kald til vores backend. 
+For at gøre det nemt at få deployed vores komponenter, benyttede vi os af Continuous Integration & Continuous Delivery. I den forbindelse opsatte vi en Jenkins build-server, som vi brugte når ny kode skulle deployes til vores servere.
+Vi valgte at køre vores applikationer gennem docker-containers, som gjorde det nemt at vedligeholde, opdatere samt køre applikationerne på vores cloud-servere.
+Vi oprettede et internt docker-subnet, som alle vores containere var en del af. I den sammenhæng kørte vi samtlige containers, inklusiv Prometheus og Grafana på samme server. Selvom vores server godt kunne håndtere dette, kunne det alligevel godt have været en fordel at dele applikationerne ud på flere servere, eksempelvis ved hjælp af docker-swarm. Vores logging-system bestod af [ELK-stacken]( https://www.elastic.co/webinars/introduction-elk-stack) som ligger på en separat server, hvor det bliver posted logs fra systemet, hovedsagligt har været fejl logs.
+Ved opdatering af ny kode foregik det på den måde, at den kørende container blev fjernet, og erstattet af en ny container via Jenkins-byg. På den måde undgik vi for meget nedetid, i forbindelse med opdateringer. Set i bakspejlet er der dog væsentligt smartere måder, hvorpå vi kunne have opdateret vores applikationer. Vi burde enten have skaleret vores applikationer vha. Docker-swarm, og benyttet eksempelvis rullende opdateringer til at sikre at vi ikke gik glip af requests fra simulatoren. Alternativt kunne vi have brugt flere containers og en load-balancer, og så opdatere containerne en ad gangen.
+
+### 1.4. Software design
+
+#### Backend
+Design af vores backend gik meget ud på at finde ud af strukturen, hvorpå posts og kommentarer skulle hænge sammen. Vi havde i tankerne at posts og kommentarer skulle eksistere hver for sig og have deres eget schema, men efter noget implementering gik det op for os at vores krav var anderledes, idet at posts og kommentarer hørte under den samme entitet og blev adskilt af hvilken "post_type" de har. På vores backend har vi defineret entiteten "Post" igennem mongoose, der definerer schema til MongoDB, som ser ud på følgende måde:
+```javascript
+const postSchema = mongoose.Schema({
+    username: String,
+    post_type: String,
+    pwd_hash: String, 
+    post_title: String,
+    post_url: String,
+    post_parent: Number,
+    hanesst_id: {type: Number, unique: true},
+    post_text: String,
+    created_at: Date,
+    points: Number,
+})
+```
+Det var et krav at vores backend kunne tage imod HTTP POST kald til vores backend for at tage imod nye posts, hvilket stemte meget overens med de overvejelser vi havde gjort om vores måde at kommunikere på tværs af vores systemer. Vores overvejelser gik på at opstille et REST API, ved brug af express, som bl.a. vil blive brugt af frontend til at hente seneste post, lave posts, etc.
+Vores gruppe har haft meget erfaring med de fleste af de teknologier som vi har valgt at bruge, så som, Node.js, MongoDB sammen med Mongoose og Express, så vi havde meget tillid til at vores valg kunne udføre opgaven hurtigt og give et stabilt produkt. Det eneste store bekymring vi havde, som vi også brugte en del til på at researche, var måden at hente posts med kommentarer i den struktur som posts skulle have. Vores undersøgelse gik på at finde ud af om MongoDB eller MariaDB/MySQL stillede et værktøj til rådighed, hvor på man rekursivt kunne matche et post med et “parent” post. De havde begge en løsning, men vores vurdering var at MongoDB havde den bedste løsning og derudover er vores fortrukne valg af database.
+
+#### Frontend
+Teknologier til frontenden blev først og fremmest valgt ud fra de krav, der var til applikationen. Vi forestillede os, at det ville være en fordel at vælge teknologier der gjorde det nemmere at arbejde med visuel repræsentation af data. Nogle af de konkrete redskaber vi havde i tankerne var bl.a. data-bindinger, som vi kendte fra Angular, og komponent-baseret struktur som efterhånden er ved at være en standard indenfor frontend design. Derudover havde vi et ønske om at udforske nogle lidt ukendte teknologier. Derfor endte vi med at vælge frameworket Vue.js, understøttet af Webpack til at håndtere dynamisk importering af ressourcer.
+##### Vue
+Et af grund-koncepterne i Vue er at man opbygger sin applikation af komponenter. Et komponent har sin egen state, og indeholder derudover template, styling og logik, der samlet set beskriver hvordan komponent visuelt repræsenterer, samt eventuelt opdaterer, sin state.
+
+![Vue post list fil](https://github.com/mawmaw1/HackerNewsClone/blob/master/doc/img/post-list-vue.PNG)
+*Vue komponent-fil med henholdsvis html template, script og styling*
+
+**Webpack** er den anden brik i puslespillet og har forskellige formål. Webpack bundler ressource sammen i få filer, lidt ligesom en backend application kompilerer til .bin eller .jar filer. Det fungerer på den måde at webpack, når man builder sin application, gennemgår kildefilerne og deres dependencies. Webpack ”bygger” herefter nogle bundle filer der indeholder den samlede kode med alle dependencies forløst, som man herefter bruger i produktion.
+
+![Frontend Mappe struktur](https://github.com/mawmaw1/HackerNewsClone/blob/master/doc/img/mappe_struktur_01.PNG)
+*Frontend kildekodens mappe-struktur*
+
+Der er flere fordele ved webpack. Transpiling af filer gør det muligt at bruge redskaber og teknologier, der ikke er understøttet af moderne browsere. Derudover optimerer Webpack den måde ressourcer bliver indlæst. Webpack bygger applikationen i moduler, der bliver parset efter behov. Det betyder at applikation på et given tidspunkt kun kender til de ressource den reelt set har behov for. Det medfører der ikke er en masse unødvendigt kode der bliver parset og resulterer i bedre performance.
+
+![Dist mappen](https://github.com/mawmaw1/HackerNewsClone/blob/master/doc/img/dist_01.PNG)
+*De bundlede filer til produktion*
+
+Samlet set har **webpack og vue** stor indflydelse på udviklingsmiljøet. 
+**Vues** komponent struktur gør applikationen mere skalérbar, da logikken eksisterer i afgrænsede komponenter. Dette begrænser kompleksiteten, da du ikke har store filer med flere hundrede linjer kode, og globale variabler der muteres flere forskellige steder i koden. I takt med at applikationens størrelse øges, er det blot antallet af komponenter der øges. Webpack binder det hele sammen med module bundling. Derudover vil det, på mange punkter, være nemt at vedligeholde en Vue applikation. Hvis man i forvejen har kendskab til Vue, eller alternativ React, vil man ikke skulle bruge lang tid på at sætte sig ind i koden, selv man ikke har skrevet den. De fleste af vores Vue komponent-filer er på 50-150 linjer (html, script og css), og det ville sandsynligvis ikke tage en udvikler med kendskab til Vue, eller evt. React, særlig lang tid at sætte sig ind i koden.
+
+
 ### 1.5. Software implementation
 Vores produkt blev implementeret i forskellige iterationer, og vi gik efter det vigtigste hvilket var at have vores backend klar til at modtage posts, der kunne blive indsat i databasen. Allerede der løb vi ind i et problem der gik på at, de POST kald vi fik ikke havde en header der beskrev at data typen var JSON. Vi fik løst dette problem ved at lave et middleware i Express det skulle parse alt det data i HTTP requests, som JSON.
 
