@@ -126,7 +126,9 @@ Da UP oftes bruges til mellemstore eller store systemer gav det ikke mening at b
 Vores applikations arkitektur er bygget op omkring en MongoDB database. Hertil har vi en Node.js backend med Express frameworket, som vores REST API er designet med. Som visuelt lag har vi en Vue.js frontend, der henter data via HTTP kald til vores backend. 
 For at gøre det nemt at få deployed vores komponenter, benyttede vi os af Continuous Integration & Continuous Delivery. I den forbindelse opsatte vi en Jenkins build-server, som vi brugte når ny kode skulle deployes til vores servere.
 Vi valgte at køre vores applikationer gennem docker-containers, som gjorde det nemt at vedligeholde, opdatere samt køre applikationerne på vores cloud-servere.
+
 Vi oprettede et internt docker-subnet, som alle vores containere var en del af. I den sammenhæng kørte vi samtlige containers, inklusiv Prometheus og Grafana på samme server. Selvom vores server godt kunne håndtere dette, kunne det alligevel godt have været en fordel at dele applikationerne ud på flere servere, eksempelvis ved hjælp af docker-swarm. Vores logging-system bestod af [ELK-stacken]( https://www.elastic.co/webinars/introduction-elk-stack) som ligger på en separat server, hvor det bliver posted logs fra systemet, hovedsagligt har været fejl logs.
+
 Ved opdatering af ny kode foregik det på den måde, at den kørende container blev fjernet, og erstattet af en ny container via Jenkins-byg. På den måde undgik vi for meget nedetid, i forbindelse med opdateringer. Set i bakspejlet er der dog væsentligt smartere måder, hvorpå vi kunne have opdateret vores applikationer. Vi burde enten have skaleret vores applikationer vha. Docker-swarm, og benyttet eksempelvis rullende opdateringer til at sikre at vi ikke gik glip af requests fra simulatoren. Alternativt kunne vi have brugt flere containers og en load-balancer, og så opdatere containerne en ad gangen.
 
 ### 1.4. Software design
@@ -148,6 +150,7 @@ const postSchema = mongoose.Schema({
 })
 ```
 Det var et krav at vores backend kunne tage imod HTTP POST kald til vores backend for at tage imod nye posts, hvilket stemte meget overens med de overvejelser vi havde gjort om vores måde at kommunikere på tværs af vores systemer. Vores overvejelser gik på at opstille et REST API, ved brug af express, som bl.a. vil blive brugt af frontend til at hente seneste post, lave posts, etc.
+
 Vores gruppe har haft meget erfaring med de fleste af de teknologier som vi har valgt at bruge, så som, Node.js, MongoDB sammen med Mongoose og Express, så vi havde meget tillid til at vores valg kunne udføre opgaven hurtigt og give et stabilt produkt. Det eneste store bekymring vi havde, som vi også brugte en del til på at researche, var måden at hente posts med kommentarer i den struktur som posts skulle have. Vores undersøgelse gik på at finde ud af om MongoDB eller MariaDB/MySQL stillede et værktøj til rådighed, hvor på man rekursivt kunne matche et post med et “parent” post. De havde begge en løsning, men vores vurdering var at MongoDB havde den bedste løsning og derudover er vores fortrukne valg af database.
 
 #### Frontend
@@ -206,6 +209,7 @@ Her følger SLA mellem gruppe A og B:
 ### 2.3. Maintenance and reliability
 Efter at have indgået en SLA med den gruppe vi skulle monitorere, sørgede vi for mindst en gang dagligt at kontrollere gruppens delkomponenter, for dermed at sikre at der ikke var opstået problemer. Vi kontrollerede deres visuelle monitoreringssystem Grafana for at sikre at oppetiden var over 95%, undersøgte om vi fik et svar på deres /alive backend REST-api sti, samt besøgte deres frontend for at finde ud af hvorvidt der skulle være problemer der.
 Helt generelt har deres system kørt mere eller mindre problemfrit, og der har derfor ikke været meget at rapportere til gruppen.
+
 Vi oplevede dog en dag at deres system kørte helt ekstremt langsomt, og det tog op til 20-25 sekunder at indlæse posts på deres frontend. Da problemet blev opdaget til en undervisningstime, gjorde vi gruppen opmærksomme på problemet med det samme. I den forbindelse oprettede vi ikke et GitHub issue, men i tilfælde af at vi havde opdaget det på et andet tidspunkt, ville vi have oprettet et GitHub issue tilsvarende nedenstående billede, som blot er et eksempel på hvordan det kunne have foregået.
 
 ![alt text](https://github.com/mawmaw1/HackerNewsClone/blob/master/doc/img/Screen%20Shot%202017-12-16%20at%2015.58.20.png)
@@ -216,6 +220,7 @@ I den forbindelse oplevede vi at udviklerne tog problemet seriøst, for da grupp
 ## 3. Discussion
 ### 3.1. Technical discussion
 Med henblik på teknisk design, valgte vi en kombination af bekendte og nye teknologier. Teknologier som Node og MongoDB, som vi på forhånd har erfaring med, var relativt nemme for os at sætte op, og skabte et udviklingsmiljø som vi kunne trives i. Teknologier som Jenkins og Webpack krævede lidt mere opsætning, men de gjorde også en mærkbar forskel med hensyn til hvor nemt det blev at deploye ny kode. Express og Vue (frameworks) hjalp med at sætte nogle faste rammer op omkring kode-strukturen, og abstraherede samtidig nogle af de mest gængse problemer væk, så vi kunne fokusere på det større billede. Docker strømlinede deployment, og gjorde at vi undgik en del problemer omkring opsætning af serveren. Overordnet set var vi meget tilfredse med den tekniske del, og har fået kendskab til en masse redskaber der hjælper med at løse mange af de problemstillinger man står overfor, når man har med et større system at gøre.
+
 I teorien var det en god idé at monitorere hinanden, grupperne imellem, men rent praktisk faldt det en smule til jorden, da systemerne som sådan bare kørte uden større problemer. Derfor var der ikke så meget for os at lave som operatører, og i virkeligheden havde vi nok en større interesse i at monitorere og forbedre vores eget system, fremfor at monitorere andres systemer.
 
 
