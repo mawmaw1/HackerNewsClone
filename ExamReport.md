@@ -193,7 +193,7 @@ Da gruppen havde valgt, at vi skulle have adgang til deres Jenkins-server, havde
 Det var i dokumentet beskrevet, hvad vi som operatører havde adgang til, og hvad det var meningen vi skulle monitorere. Det var muligt at få et overblik over deres forskellige komponenters logs, via et bygge-job. Det kunne måske have været gjort nemmere, ved at have et dedikeret komponent til at vise logs i virkelig tid, fremfor at skulle starte et nyt job for at kunne se logs. Udover dette, var der i deres hand-over en masse viden omkring hvordan deres komponenter internt kommunikerede, hvilket også var med til at øge forståeligheden af deres komplette system.
 Sammenlagt var det et hand-over i høj kvalitet, og de havde tydeligt klargjort hvad formålet for os som operatører var, og vi havde derfor nemt ved at sætte os ind i rollerne som operatører.
 
-#### 2.2. Service-level agreement
+### 2.2. Service-level agreement
 I samarbejde med den gruppe vi skulle være operatører for, blev der udarbejdet en SLA som begge grupper var enige om.
 I denne SLA var begge gruppers ansvar beskrevet, for både udviklerne og operatørerne. Den metric som var vigtigst for gruppe A som vi monitorerede, var at deres systems oppetid blev holdt over 95%. Såfremt denne metric ikke blev overholdt, skulle vi som operatører melde det til udviklerne, som efterfølgende ville sørge for at udbedre dette. Til at starte med havde vi talt med gruppen om at denne metric skulle holdes over 99%, da vi mente at nedetid burde holdes på et absolut minimum. Vi blev dog efterfølgende enige med gruppen om, at dette var for ambitiøst.
 Dokumentet indeholdt herudover en oversigt over gruppens forskellige del-komponenter i deres system, samt de dertilhørende IP-adresser.
