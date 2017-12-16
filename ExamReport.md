@@ -1,10 +1,10 @@
 # LSD Exam report
 
 Rapporten er skrevet af:
-- Kristian Oliver Nielsen
-- Christopher Bob Borum
+- Kristian Nielsen
+- Christopher Borum
 - Magnus Larsen
-- Kristoffer 'le Fissen de Krissen' Noga
+- Kristoffer Noga
 
 ## Indledning
 
