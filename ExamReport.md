@@ -224,7 +224,7 @@ Yderligere har vi været ekstremt tilfredse med Jenkins og generelt CI/CD, da vi
 De forskellige roller (project manager, architect, devops etc.), har vi ikke gjort brug af, da vi ikke følte det gjorde så meget for vores gruppe, idet vi har gennemgået de fleste ting som gruppe og ikke ladt den individuelle person stå for en kæmpe del af projektet.
 
 ## Konklusion:
-Vi føler at projektet, og udviklingsprocessen i sin helhed, har udvidet vores horisont omkring store systemer. Vi har fået en masse viden omkring redskaber og deres anvendelse, samt designvalg, hvilket har gjort os bedre rustet til at udvikle og vedligeholde et system der vokser eksponentielt. Ligesom min penis.
+Vi føler at projektet, og udviklingsprocessen i sin helhed, har udvidet vores horisont omkring store systemer. Vi har fået en masse viden omkring redskaber og deres anvendelse, samt designvalg, hvilket har gjort os bedre rustet til at udvikle og vedligeholde et system der vokser eksponentielt.
 
 
 
