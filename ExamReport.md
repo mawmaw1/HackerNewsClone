@@ -3,8 +3,8 @@
 Rapporten er skrevet af:
 - Kristian Oliver Nielsen
 - Christopher Bob Borum
-- Magnus Illum Gonoré Larsen
-- Kristoffer Noga
+- Magnus Larsen
+- Kristoffer 'le Fissen de Krissen' Noga
 
 ## Indledning
 
